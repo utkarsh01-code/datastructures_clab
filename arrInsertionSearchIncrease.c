@@ -18,7 +18,7 @@ int main()
 		printf(" showing the arrays : arr[%d] = %d\n", i, *(arr+i));
 	}
 	arr = realloc(arr,(size* sizeof(int)+1));
-	printf("enter the new array element : arr[%d]\n", n);
+	printf("enter the new array element : arr[%d]\n", size);
 	scanf(" %d", (arr+size));
 	for (i = 0; i < size+1; ++i)
 	{

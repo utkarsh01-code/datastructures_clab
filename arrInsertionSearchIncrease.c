@@ -4,35 +4,35 @@
 int main()
 {
 	int *arr;
-	int i, n ,j;//j is element we going to search for
+	int i, size ,searchelement;//j is element we going to search for
 	printf("size of array: \n");
-	scanf(" %d", &n);
+	scanf(" %d", &size);
 	arr = (int *)malloc(n*sizeof(int));
-	for (i = 0; i < n; ++i)
+	for (i = 0; i < size; ++i)
 	{
 		printf("Enter the arrays:arr[%d]\n", i);
 		scanf(" %d", (arr+i));
 	}
-	for (i = 0; i < n; ++i)
+	for (i = 0; i < size; ++i)
 	{
 		printf(" showing the arrays : arr[%d] = %d\n", i, *(arr+i));
 	}
-	arr = realloc(arr,(n* sizeof(int)+1));
+	arr = realloc(arr,(size* sizeof(int)+1));
 	printf("enter the new array element : arr[%d]\n", n);
-	scanf(" %d", (arr+n));
-	for (i = 0; i < n+1; ++i)
+	scanf(" %d", (arr+size));
+	for (i = 0; i < size+1; ++i)
 	{
 		printf(" showing the arrays : arr[%d] = %d\n", i, *(arr+i));
 	}
     //performing a linear search 
     printf("Enter element to search:"); 
-    scanf("%d",&j);
+    scanf("%d",&searchelement);
      
-    for(i=0;i<n+1;++i)
-        if(arr[i]==j)
+    for(i=0;i<size+1;++i)
+        if(arr[i]==searchelement)
             break;
      
-    if(i<n+1)
+    if(i<size+1)
         printf("Element found at index %d",i); 
     else
         printf("Element not found"); 

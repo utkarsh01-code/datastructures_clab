@@ -1,107 +1,122 @@
-
-#include<stdio.h>
-#include<stdlib.h>
-
-struct stack{
-    int value;
-    struct stack*next;
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h> 
+struct Stack
+{
+    int *arr;
+    int top;    
+    int size; 
 };
-struct stack *top = NULL;
-
-void push_element();
-void pop_element();
-void display_stack();
-void display_top();
-
-void main()
+struct Stack *createStack(int size)
 {
-    int choice;
-    while(1)
+    struct Stack *sp = (struct Stack *)malloc(sizeof(struct Stack));
+    sp->size = size;
+    sp->top = -1;
+    sp->arr= (int *)malloc(sp->size * sizeof(int));
+    return sp;
+}
+int isFull(struct Stack *sp)
+{
+    if (sp->top == sp->size - 1)
+    { 
+        return 1;
+    }
+    else
+        return 0;
+}
+int isEmpty(struct Stack *sp)
+{
+    if (sp->top == -1)
     {
-        printf("Enter 1 to Push element\n");
-        printf("Enter 2 to Pop element\n");
-        printf("Enter 3 to Display top element\n");
-        printf("Enter 4 to Diaplay all elements\n");
-        printf("Enter 0 Exit.\n");
-        printf("Enter your choice:\n");
+        return 1;
+    }
+    else
+        return 0;
+}
+
+void push(struct Stack *sp, int element)
+{
+    if (isFull(sp))
+    {
+        printf("Stack Overflow !!! \n");
+    }
+    else
+    {
+        sp->arr[++sp->top] = element; 
+        printf("The element pushed to the stack is %d\n", element);
+    }
+}
+int pop(struct Stack *sp)
+{
+    if (isEmpty(sp))
+    { 
+        return 0;
+    }
+    else
+        return sp->arr[sp->top--];
+}
+void displayElements(struct Stack *sp)
+{
+    if (isEmpty(sp))
+    {
+        printf("Empty Stack!!!\n");
+    }
+    else
+    {
+        printf("Elements present in the stack are:\n");
+        int tmp;
+        tmp = sp->top;
+        while (tmp != -1)
+        {
+            printf("%d \n", sp->arr[tmp]);
+            --tmp;
+        }
+    }
+}
+int main()
+{
+    int choice, element, popped, size;
+    printf("Enter the size of the stack : \n");
+    scanf("%d", &size);
+    struct Stack *sp = createStack(size); 
+    do
+    {
+        printf("\t IMPLEMENTATIONS \n");
+        printf("Press 1 to push an element in the stack\n");
+        printf("Press 2 to pop an element from the stack\n"); 
+        printf("Press 3 to display elements of the stack\n");
+        printf("Press 4 to exit the stack\n");
+        printf("Enter your choice : \n");
         scanf("%d", &choice);
-
-        switch(choice)
+        switch (choice)
         {
-            case 1: 
-                push_element();
-                break;
-
-            case 2:
-                pop_element();
-                break;
-
-            case 3:
-                display_top();
-                break;
-
-            case 4:
-                display_stack();
-                break;
-
-             case 0:
-                exit(0);
-
-            default:
-                printf("wrong input!...Try again!");
-
+        case 1:
+            printf("\n \t Pushing element in stack \n");
+            printf("Enter the element you want to push in the stack : \n");
+            scanf("%d", &element);
+            push(sp, element);
+            break;
+        case 2:
+            printf("Pop the element from stack \n");
+            popped = pop(sp);
+            if (sp->top == -1 && popped == 0)
+            {
+                printf("Stack Underflow!!! \n");
+            }
+            else
+                printf("The popped element is %d \n", popped);
+            break;
+        case 3:
+            displayElements(sp);
+            break;
+        case 4:
+            exit(0);
+        default:
+            printf("WRONG INPUT:( TRY AGAIN!! \n");
+            break;
         }
-    }
-}
-void push_element()
-{
-    int num, c;
-    struct stack *tmp;
-    tmp = (struct stack*)malloc(sizeof(struct stack));
-    printf("Enter value to be inserted:\n");
-    scanf("%d", &num);
-
-    tmp->value = num;
-    tmp->next = top;
-    top = tmp;
-}
-void pop_element()
-{
-    struct stack *tmp;
-    if(&top == NULL)
-    {
-        printf("Stack is empty\n");
-    }
-    else{
-        tmp = top;
-        printf("value to be popped is: %d\n", tmp->value);
-        top = top->next;
-        free(tmp);
-    }
-}
-void display_top()
-{
-    if(top == NULL)
-    {
-        printf("Stack is empty!\n");
-    }
-    else{
-        printf("Top of the stack is : %d\n", top->value);
-    }
-}
-void display_stack()
-{
-    struct stack *tmp;
-    tmp = top;
-    if(top == NULL)
-    {
-        printf("Stack is empty!\n");
-    }
-    else{
-        while(tmp!= NULL)
-        {
-            printf("%d\n", tmp->value);
-            tmp = tmp->next;
-        }
-    }
+        printf("Press ENTER if you wish to continue!!\n");
+        getch();
+    } while (1);
+    return 0;
 }

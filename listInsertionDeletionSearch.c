@@ -12,7 +12,7 @@ int insert_element(int *list, int size, int insert, int element){
      int i;
      if(size>insert){
         list = realloc(list, ((size+1)*sizeof(int)));
-        if(list == 0){
+        if(list == NULL){
          printf("Memory cannot be allocated\n");
         }else{
             for(i = size; i>=insert; i--){
